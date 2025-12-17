@@ -1,0 +1,61 @@
+services:
+    calendar-nginx:
+        image: nginx:1.17-alpine
+        restart: always
+        container_name: calendar-nginx
+        volumes:
+            - ./:/var/www/html
+            - ./docker/nginx/conf.d:/etc/nginx/conf.d
+            - ./docker/nginx/ssl:/etc/nginx/ssl
+        depends_on:
+            - calendar-php
+        ports:
+            - "8086:80"
+        networks:
+            - abw_calendar_network
+
+    calendar-php:
+        build:
+            context: ./docker/php
+            dockerfile: Dockerfile
+            target: laravel-app
+        restart: always
+        container_name: calendar-php
+        volumes:
+            - ./:/var/www/html
+            - ./docker/php/conf.d/memory_limit.ini:/usr/local/etc/php/conf.d/memory_limit.ini
+        networks:
+            - abw_calendar_network
+        ulimits:
+            nofile:
+                soft: 65536
+                hard:
+                    65536
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+
+    calendar-postgres:
+        image: postgres:17
+        restart: always
+        container_name: calendar-postgres
+        ports:
+            - "54326:5432"
+        volumes:
+            - calendar-postgres:/var/lib/postgresql/data
+            - ./docker/postgres/init.sh:/docker-entrypoint-initdb.d/init.sh
+        environment:
+            POSTGRES_DB: calendar
+            POSTGRES_USER: root
+            POSTGRES_PASSWORD: test
+        networks:
+            - abw_calendar_network
+
+volumes:
+    calendar-mysql:
+    calendar-postgres:
+    calendar-redis:
+
+networks:
+    abw_calendar_network:
+        driver: bridge
+
