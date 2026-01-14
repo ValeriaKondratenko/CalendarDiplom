@@ -1,0 +1,264 @@
+
+
+.menuAdmin {
+    width: 220px;
+    height: 600px;
+    top: 0;
+    left: 0;
+    background-color: #F3F3F3;
+    padding: 10px;
+
+    border: none;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 200px;
+}
+
+.containerOne,
+.containerTwo {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.headerMenu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.headerMenu h2 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.headerMenu span {
+    font-size: 16px;
+}
+
+.line {
+    height: 2px;
+    width: 190px;
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 10px;
+
+}
+
+.menulist {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.podmenu {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+    padding: 0 18px;
+}
+
+
+
+.containerPage,
+.containerOne {
+    display: flex;
+    gap: 5px;
+    align-items: flex-start;
+
+}
+
+.containerPage {
+    align-items: center;
+}
+
+img{
+    width: 15%;
+}
+
+.imgBig{
+    width: 10%;
+}
+
+.imgBig2{
+    width: 8%;
+}
+
+.btn_logoutadmin {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+/*для стартовой страницы стили*/
+
+.containerWelcome{
+    display: flex;
+    width: 800px;
+    padding: 100px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.containerWelcome h1{
+    font-size: 36px;
+    font-weight: 600;
+}
+
+.containerForAll {
+    display: flex;
+    gap: 100px;
+}
+
+/*страница отображения событий*/
+
+.containerEvents {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+}
+
+.containerSearchCreate {
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;
+}
+
+.containerEvents h1{
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.containerSearch{
+    padding: 10px;
+    color: gray;
+    border: 2px solid #D9D9D9;
+    border-radius: 50px;
+    height: 30px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+}
+
+.btnCreate {
+    background-color: #FF4D00;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    width: 200px;
+    height: 30px;
+    border: none;
+    border-radius: 50px;
+
+    text-decoration: none;
+}
+
+.table_header,
+.table_row {
+    display: flex;
+    align-items: center;
+}
+.table_header div {
+    width: 140px;
+}
+
+.table_row div {
+    width: 140px;
+}
+
+
+.table_row .description {
+    width: 260px;
+}
+
+
+.actions {
+    display: flex;
+    align-items: center;
+}
+
+
+.table_header {
+    border-top: 2px solid #FF4D00;
+    border-bottom: 2px solid #FF4D00;
+    font-weight: 600;
+    padding: 12px 0;
+}
+
+.table_row {
+    padding: 12px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+/*стили для странички создания */
+
+.containerCreateEvent {
+    padding: 40px;
+    max-width: 600px;
+}
+
+.backLink {
+    color: #999;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.containerCreateEvent h1 {
+    margin: 20px 0 30px;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.createEventForm {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.createEventForm label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.createEventForm input,
+.createEventForm textarea {
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 10px 14px;
+    font-size: 14px;
+}
+
+.createEventForm textarea {
+    height: 120px;
+    resize: none;
+}
+
+.btnSelectImage {
+    background-color: #FF4D00;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 20px;
+    width: fit-content;
+    cursor: pointer;
+}
+
+.timeRow {
+    display: flex;
+    gap: 20px;
+}
+
+

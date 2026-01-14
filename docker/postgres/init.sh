@@ -3,5 +3,5 @@ set -e
 
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
 	CREATE DATABASE calendar;
-	CREATE DATABASE calendar_test;
+#	CREATE DATABASE calendar_test;
 EOSQL

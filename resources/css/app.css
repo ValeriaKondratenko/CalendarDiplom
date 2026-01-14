@@ -1,0 +1,9 @@
+@import './calendar.css';
+@import "./eventinfo.css";
+@import "./footer.css";
+@import "adminpanel.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+

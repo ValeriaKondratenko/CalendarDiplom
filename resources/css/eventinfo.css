@@ -1,0 +1,123 @@
+.container_info_event {
+    margin-top: 200px;
+    display: flex;
+    gap: 30px;
+}
+
+.containerImageButton {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.imageEvent{
+    width: 1300px;
+    height: 300px;
+    border: none;
+    border-radius: 20px
+}
+
+.btnWebSaitEvent {
+    width: 100%;
+    padding: 10px;
+    background-color: #FFFFFF;
+    border: 3px solid #FF4D00;
+
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.btnWebSaitEvent  img{
+    width: 3%;
+}
+
+.container_info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.container_info h2{
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.conrainer_info_group {
+    display: flex;
+    gap: 250px;
+}
+
+.conrainer_info_group1{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.conrainer_info_group2 {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.container_place,
+.container_price,
+.container_start,
+.container_end
+{
+    display: flex;
+    gap: 10px;
+}
+
+.container_date h3,
+.container_place h3,
+.container_price h3,
+.container_start h3,
+.container_end h3
+{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.container_info span{
+    font-size: 18px;
+}
+
+.container_date span,
+.container_place span,
+.container_price span,
+.container_start span,
+.container_end span
+{
+    font-size: 18px;
+}
+
+.other_info_event {
+    padding: 20px;
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.container_term,
+.container_people,
+.container_organisation{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.container_term h1,
+.container_people h1,
+.container_organisation h1{
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.container_term span,
+.container_people span,
+.container_organisation span{
+    font-size: 18px;
+}

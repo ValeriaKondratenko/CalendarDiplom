@@ -26,13 +26,19 @@ RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
 ########################################################################################################################
 FROM base as laravel-app
 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    nodejs \
+    npm \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 # Install Composer globally
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 #xdebug
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
 RUN install-php-extensions xdebug-3.3.2
-ENV PHP_IDE_CONFIG 'serverName=abw-ms-auth'
+ENV PHP_IDE_CONFIG 'serverName=abw-ms-calendar'
 RUN echo "xdebug.mode=debug,coverage" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN echo "xdebug.start_with_request = yes" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
@@ -61,6 +67,8 @@ RUN chown -R www-data:www-data /var/www/.composer
 RUN chown -R www-data:www-data /var/www/.config
 RUN chown -R www-data:www-data /var/www/html
 
+RUN mkdir /var/www/.npm
+RUN chown -R www-data:www-data /var/www/.npm
 # Switch to non-root user (www-data)
 USER www-data
 

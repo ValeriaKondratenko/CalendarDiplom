@@ -39,7 +39,7 @@ services:
         restart: always
         container_name: calendar-postgres
         ports:
-            - "54326:5432"
+            - "55432:5432"
         volumes:
             - calendar-postgres:/var/lib/postgresql/data
             - ./docker/postgres/init.sh:/docker-entrypoint-initdb.d/init.sh
