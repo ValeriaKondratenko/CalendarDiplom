@@ -42,7 +42,7 @@
                                 {{ method_field('DELETE') }}
 
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-danger delete-user" value="Delete user">
+                                    <button type="submit" class="btn btn-danger delete-user" value="Delete user"></button>
                                 </div>
                             </form>
 {{--                                <button ="{{ route('admin.user.destroy', $user->id) }}" >--}}

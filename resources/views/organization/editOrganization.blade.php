@@ -15,15 +15,15 @@
 
     <div class="containerCreateEvent" >
 
-        <a href="{{route('admin.adminPage')}}" class="backLink">&lt; Мероприятия</a>
+        <a href="{{route('admin.organizations')}}" class="backLink">&lt; Организации</a>
 
-        <h1>Редактирование мероприятия</h1>
+        <h1>Редактирование организации</h1>
 
-        <form class="createEventForm" method="POST" action="{{route('event.update', $event)}}">
+        <form class="createEventForm" method="POST" action="{{route('admin.organization.update', $organization)}}">
             @csrf
             @method('PATCH')
 
-            @include('event.form')
+            @include('organization.formOrganisation')
             <button type="submit" class="btnSubmit" >Обновить</button>
         </form>
 

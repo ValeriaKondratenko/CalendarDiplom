@@ -15,11 +15,11 @@
 
     <div class="containerCreateUser" >
 
-        <a href="{{route('users')}}" class="backLink">&lt; Пользователи</a>
+        <a href="{{route('admin.users')}}" class="backLink">&lt; Пользователи</a>
 
         <h1>Создание пользователя</h1>
 
-        <form class="createEventForm" method="POST" action="{{route('user.store')}}">
+        <form class="createEventForm" method="POST" action="{{route('admin.user.store')}}">
             @csrf
             <label>
                 Имя пользователя

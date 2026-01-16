@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\IsAdminUser;
@@ -25,6 +26,13 @@ Route::name('admin.')->middleware([IsAdminUser::class])->prefix('admin')->group(
     Route::get('users/create', [LoginController::class, 'create'])->name('userCreate');
     Route::post('users', [LoginController::class, 'store'])->name('user.store');
     Route::delete('users/{id}', [LoginController::class, 'destroy'])->name('user.destroy');
+    Route::get('organizations', [OrganizationController::class, 'index'])->name('organizations');
+    Route::get('organizations/{id}/edit', [OrganizationController::class, 'edit'])->name('organization.edit');
+    Route::patch('organizations/{id}', [OrganizationController::class, 'update'])->name('organization.update');
+    Route::get('organizations/create', [OrganizationController::class, 'create'])->name('organizationCreate');
+    Route::post('organizations', [OrganizationController::class, 'store'])->name('organization.store');
+    Route::delete('organizations/{id}', [OrganizationController::class, 'destroy'])->name('organization.destroy');
+
 });
 
 Route::get('events/{id}', [EventController::class, 'show'])->name('event.show');

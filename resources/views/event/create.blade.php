@@ -29,11 +29,11 @@
 
     <div class="containerCreateEvent" >
 
-        <a href="{{route('adminPage')}}" class="backLink">&lt; Мероприятия</a>
+        <a href="{{route('admin.adminPage')}}" class="backLink">&lt; Мероприятия</a>
 
         <h1>Создание мероприятия</h1>
 
-        <form class="createEventForm" method="POST" action="{{route('event.store')}}">
+        <form class="createEventForm" method="POST" action="{{route('admin.event.store')}}">
             @csrf
             @include('event.form')
             <button type="submit" class="btnSubmit" >Создать</button>

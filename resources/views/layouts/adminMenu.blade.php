@@ -30,7 +30,7 @@
                     </div>
                     <div class="containerPage">
                         <img src="{{asset('storage/images/iconOrganisation.png')}}" alt="iconOrganisation">
-                        <a href="">Организации</a>
+                        <a href="{{route('admin.organizations')}}">Организации</a>
                     </div>
                     <div class="containerPage">
                         <img class="imgBig" src="{{asset('storage/images/iconPlaces.png')}}" alt="iconPlaces">

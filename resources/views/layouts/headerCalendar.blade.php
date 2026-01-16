@@ -7,7 +7,7 @@
             @if(Route::has('login'))
                 @auth
                     @if(auth()->user()->role === \App\Enums\RolesEnum::ADMIN->value)
-                        <a href="{{ route('adminPage') }}" class="btn_admin">
+                        <a href="{{ route('admin.adminPage') }}" class="btn_admin">
                             Админ-панель
                         </a>
                     @endif
