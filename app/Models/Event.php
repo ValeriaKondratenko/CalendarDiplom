@@ -10,7 +10,7 @@ class   Event extends Model
 {
     use InteractsWithMedia;
 
-    protected $fillable = ['imageEvent', 'title', 'status', 'description', 'dateEvent', 'timeEvent', 'endEvent'];
+    protected $fillable = ['imageEvent', 'title', 'status', 'description', 'dateEvent', 'timeEvent', 'endEvent', 'price', 'participation', 'program', 'other_info'];
 
 
     public function getCover()

@@ -19,7 +19,7 @@
             <div class="containerSearch">
                 <input class="searchinput" type="text" placeholder="Поиск">
             </div>
-            <a href="{{route('event.create')}}" class="btnCreate">Создать</a>
+            <a href="{{route('admin.event.create')}}" class="btnCreate">Создать</a>
         </div>
 
 
@@ -33,6 +33,9 @@
                             <div>Начало</div>
                             <div>Конец</div>
                             <div>Цена</div>
+                            <div>Участие</div>
+                            <div>Программа</div>
+                            <div>Другая информация</div>
                             <div>Статус</div>
                             <div></div>
                         </div>
@@ -46,12 +49,15 @@
                                 <div>13:00</div>
                                 <div>18:00</div>
                                 <div>25 руб.</div>
+                                <div>Короткое описание...</div>
+                                <div>Короткое описание...</div>
+                                <div>Короткое описание...</div>
                                 <div class="status">Запланировано</div>
                                 <div class="actions">
-                                    <a href="{{ route('event.destroy', $event->id) }}" class="btnTrash">
+                                    <a href="{{ route('admin.event.destroy', $event->id) }}" class="btnTrash">
                                         <img src="{{ asset('storage/images/iconTrash.png') }}" alt="iconTrash">
                                     </a>
-                                    <a href="{{route('event.edit', $event->id )}}" class="btnCorrect">
+                                    <a href="{{route('admin.event.edit', $event->id )}}" class="btnCorrect">
                                         <img src="{{asset('storage/images/iconCorrect.png')}}" alt="iconCorrect">
                                     </a>
                                 </div>
