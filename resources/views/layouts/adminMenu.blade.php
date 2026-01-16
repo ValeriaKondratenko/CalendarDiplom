@@ -18,7 +18,7 @@
                 <div class="podmenu">
                     <div class="containerPage">
                         <img src="{{asset('storage/images/iconEvents.png')}}" alt="iconEvent">
-                        <a href="{{route('eventsPage')}}">Мероприятия</a>
+                        <a href="{{route('admin.eventsPage')}}">Мероприятия</a>
                     </div>
                     <div class="containerPage">
                         <img src="{{asset('storage/images/iconGraphic.png')}}" alt="iconGraphic">
@@ -26,7 +26,7 @@
                     </div>
                     <div class="containerPage">
                         <img src="{{asset('storage/images/iconUsers.png')}}" alt="iconUsers">
-                        <a href="">Пользователи</a>
+                        <a href="{{route('admin.users')}}">Пользователи</a>
                     </div>
                     <div class="containerPage">
                         <img src="{{asset('storage/images/iconOrganisation.png')}}" alt="iconOrganisation">

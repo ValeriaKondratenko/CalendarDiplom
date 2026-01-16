@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
+    public function users(){
+        $users = User::all();
+        return view('event.users', compact('users'));
+    }
     /**
      * Display a listing of the resource.
      */
@@ -20,7 +24,8 @@ class LoginController extends Controller
      */
     public function create()
     {
-        //
+        $user = new User();
+        return view('event.userCreate', compact('user'));
     }
 
     /**
@@ -28,7 +33,20 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'role' => 'required'
+
+        ]);
+
+
+        $user = new User();
+        $user->fill($data);
+        $user->save();
+
+        return redirect()->route('users');
     }
 
     /**
@@ -58,8 +76,13 @@ class LoginController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        if ($user) {
+            $user->delete();
+        }
+        return redirect()->route('admin.users');
     }
+
 }

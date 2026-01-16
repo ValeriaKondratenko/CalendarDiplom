@@ -118,7 +118,9 @@ img{
 
 /*страница отображения событий*/
 
-.containerEvents {
+.containerEvents,
+.containerUsers,
+.containerCreateUser {
     padding: 30px;
     display: flex;
     flex-direction: column;
@@ -137,7 +139,7 @@ img{
     font-weight: 600;
 }
 
-.containerSearch{
+.searchinput{
     padding: 10px;
     color: gray;
     border: 2px solid #D9D9D9;
@@ -260,5 +262,22 @@ img{
     display: flex;
     gap: 20px;
 }
+
+.btnSubmit {
+    background-color: #FF4D00;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 20px;
+    width: fit-content;
+    cursor: pointer;
+}
+
+.btnTrash,
+.btnCorrect {
+    width: 80%;
+
+}
+
 
 

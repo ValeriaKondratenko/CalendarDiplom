@@ -8,32 +8,40 @@
     </div>
 @endif
 
-<div>
-    <label for="imageEvent">Картинка:</label>
-    <input type="text" name="imageEvent"  id="imageEvent">
+<label>
+    Название мероприятия
+    <input type="text"  >
+</label>
+
+<label>
+    Изображение мероприятия
+    <button type="button" class="btnSelectImage">Выбрать</button>
+</label>
+
+<label>
+    Описание
+    <textarea></textarea>
+</label>
+
+<label>
+    Дата
+    <input type="text" placeholder="dd.mm.yyyy">
+</label>
+
+<div class="timeRow">
+    <label>
+        Начало мероприятия
+        <input type="text" placeholder="--:--">
+    </label>
+
+    <label>
+        Конец мероприятия
+        <input type="text" placeholder="--:--">
+    </label>
 </div>
-<div>
-    <label for="title">Имя:</label>
-    <input type="text" name="title" id="title">
-</div>
-<div>
-    <label for="status">Статус:</label>
-    <input type="text" name="status" id="status">
-</div>
-<div>
-    <label for="description">Описание:</label>
-    <textarea name="description" id="description"> </textarea>
-</div>
-<div>
-    <label for="dateEvent">Дата:</label>
-    <input type="date" name="dateEvent" id="dateEvent">
-</div>
-<div>
-    <label for="timeEvent">Начало:</label>
-    <input type="time" name="timeEvent" id="timeEvent">
-</div>
-<div>
-    <label for="endEvent">Конец:</label>
-    <input type="time" name="endEvent" id="endEvent">
-</div>
+
+<label>
+    Статус
+    <input type="text">
+</label>
 

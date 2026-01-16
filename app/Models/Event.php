@@ -4,13 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Event extends Model
+class   Event extends Model
 {
-    protected $fillable = ['imageEvent','title', 'status', 'description','dateEvent','timeEvent', 'endEvent'];
+    use InteractsWithMedia;
 
-    public function getImage()
+    protected $fillable = ['imageEvent', 'title', 'status', 'description', 'dateEvent', 'timeEvent', 'endEvent'];
+
+
+    public function getCover()
     {
-        return Storage::disk('local')->url('images/Event1.png');
+        return $this->getMedia('cover')->count()
+            ? $this->getFirstMediaUrl('cover')
+            : Storage::disk('local')->url('images/Event1.png');
     }
 }
