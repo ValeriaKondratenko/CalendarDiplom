@@ -12,5 +12,9 @@ class Place extends Model
         return $this->belongsTo(Region::class);
     }
 
+    public function events(){
+        return $this->belongsTo(Event::class);
+    }
+
     protected $fillable = ['name', 'address' ,'contact_number', 'region_id'];
 }

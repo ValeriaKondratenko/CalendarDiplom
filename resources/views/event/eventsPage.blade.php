@@ -43,16 +43,16 @@
                         @foreach($events as $event)
 
                             <div class="table_row">
-                                <div>Выставка машин</div>
-                                <div class="description">Короткое описание...</div>
-                                <div>20.03.2026</div>
-                                <div>13:00</div>
-                                <div>18:00</div>
-                                <div>25 руб.</div>
-                                <div>Короткое описание...</div>
-                                <div>Короткое описание...</div>
-                                <div>Короткое описание...</div>
-                                <div class="status">Запланировано</div>
+                                <div>{{$event->title}}</div>
+                                <div class="description">{{ \Illuminate\Support\Str::limit($event->description, 10, '...') }}</div>
+                                <div>{{$event->dateEvent}}</div>
+                                <div>{{$event->timeEvent}}</div>
+                                <div>{{$event->endEvent}}</div>
+                                <div>{{$event->price}} руб.</div>
+                                <div>{{ \Illuminate\Support\Str::limit($event->participation, 10, '...') }}</div>
+                                <div>{{ \Illuminate\Support\Str::limit($event->program, 10, '...') }}</div>
+                                <div>{{ \Illuminate\Support\Str::limit($event->other_info, 10, '...') }}</div>
+                                <div class="status">{{$event->status}}</div>
                                 <div class="actions">
                                     <a href="{{ route('admin.event.destroy', $event->id) }}" class="btnTrash">
                                         <img src="{{ asset('storage/images/iconTrash.png') }}" alt="iconTrash">

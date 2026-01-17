@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Organization;
+use App\Models\Place;
+use App\Models\TypeEvent;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -38,14 +41,22 @@ class EventController extends Controller
         //Если будут ошибки, то возникает исключение
         //Иначе возвращаются данные формы
         $data = $request->validate([
-           'imageEvent' => 'required',
             'title'=> 'required',
             'status'=> 'required',
             'description'=> 'required',
             'dateEvent'=> 'required',
             'timeEvent'=>'required',
             'endEvent'=>'required',
+            'price' => 'required',
+            'participation'=> 'required',
+            'program'=> 'required',
+            'other_info'=> 'required',
+            'id_organisation'=> 'required',
+            'id_event_type'=> 'required',
+            'id_place'=> 'required'
         ]);
+
+
 
         $event = new Event();
         // Заполнение статьи данными из формы
@@ -53,8 +64,13 @@ class EventController extends Controller
         // При ошибках сохранения возникнет исключение
         $event->save();
 
+        if ($request->hasFile('image')) {
+            $event->addMedia($request->file('image'))
+                ->toMediaCollection('cover');
+        }
+
         // Редирект на указанный маршрут
-        return redirect()->route('adminPage');
+        return redirect()->route('admin.eventsPage');
     }
 
     //вывод формы
@@ -62,13 +78,20 @@ class EventController extends Controller
     {
         //Передается в шаблон вновь созданный объект, для вывода формы
         $event = new Event();
-        return view('event.create', compact('event'));
+        $organizations = Organization::all();
+        $typeEvents = TypeEvent::all();
+        $places = Place::all();
+
+        return view('event.create', compact('event', 'organizations', 'typeEvents', 'places'));
     }
 
     public function edit($id){
 
         $event = Event::findOrFail($id);
-        return view('event.edit', compact('event'));
+        $organizations = Organization::all();
+        $typeEvents = TypeEvent::all();
+        $places = Place::all();
+        return view('event.edit', compact('event', 'organizations', 'typeEvents', 'places'));
     }
 
     public function update(Request $request, $id){
@@ -77,18 +100,30 @@ class EventController extends Controller
             // У обновления немного измененная валидация
             // В проверку уникальности добавляется название поля и id текущего объекта
             // Если этого не сделать, Laravel будет ругаться, что имя уже существует
-            'imageEvent' => "required",
             'title'=> 'required',
             'status'=> 'required',
             'description'=> 'required',
-            'dateEvent'=> 'required',
-            'timeEvent'=>'required',
-            'endEvent'=>'required',
+            'dateEvent' => 'required|date',
+            'timeEvent' => 'required|date_format:H:i',
+            'endEvent'  => 'required|date_format:H:i',
+            'price' => 'required',
+            'participation'=> 'required',
+            'program'=> 'required',
+            'other_info'=> 'required',
+            'id_organisation'=> 'required',
+            'id_event_type'=> 'required',
+            'id_place'=> 'required'
         ]);
 
         $event->fill($data);
         $event->save();
-        return redirect()->route('adminPage');
+
+        if ($request->hasFile('image')) {
+            $event->addMedia($request->file('image'))
+                ->toMediaCollection('cover');
+        }
+
+        return redirect()->route('admin.eventsPage');
     }
 
 
@@ -109,7 +144,7 @@ class EventController extends Controller
         if($event){
             $event->delete();
         }
-        return redirect()->route('adminPage');
+        return redirect()->route('admin.eventsPage');
     }
 
 

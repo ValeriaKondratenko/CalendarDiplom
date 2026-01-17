@@ -19,7 +19,7 @@
 
         <h1>Редактирование мероприятия</h1>
 
-        <form class="createEventForm" method="POST" action="{{route('event.update', $event)}}">
+        <form class="createEventForm" method="POST" enctype="multipart/form-data" action="{{route('admin.event.update', $event)}}">
             @csrf
             @method('PATCH')
 

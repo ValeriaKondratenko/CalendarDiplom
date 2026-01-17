@@ -1,17 +1,4 @@
 
-{{--@extends('layouts.formAdminLayouts')--}}
-{{--@section('title', 'Форма создания мероприятия')--}}
-{{--@section('content')--}}
-
-
-{{--    <form class="formPanel" method="POST" action="{{route('event.store')}}">--}}
-{{--        @csrf--}}
-{{--        <h2>Создание мероприятия</h2>--}}
-{{--        @include('event.form')--}}
-{{--        <button type="submit" class="btnSubmit">Создать</button>--}}
-{{--    </form>--}}
-
-{{--@endsection--}}
 <html>
 <head>
     <title>
@@ -33,7 +20,7 @@
 
         <h1>Создание мероприятия</h1>
 
-        <form class="createEventForm" method="POST" action="{{route('admin.event.store')}}">
+        <form class="createEventForm" method="POST" enctype="multipart/form-data" action="{{route('admin.event.store')}}">
             @csrf
             @include('event.form')
             <button type="submit" class="btnSubmit" >Создать</button>

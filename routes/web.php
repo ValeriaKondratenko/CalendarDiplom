@@ -29,6 +29,7 @@ Route::name('admin.')->middleware([IsAdminUser::class])->prefix('admin')->group(
     Route::get('users/create', [LoginController::class, 'create'])->name('userCreate');
     Route::post('users', [LoginController::class, 'store'])->name('user.store');
     Route::delete('users/{id}', [LoginController::class, 'destroy'])->name('user.destroy');
+
     Route::get('organizations', [OrganizationController::class, 'index'])->name('organizations');
     Route::get('organizations/{id}/edit', [OrganizationController::class, 'edit'])->name('organization.edit');
     Route::patch('organizations/{id}', [OrganizationController::class, 'update'])->name('organization.update');
