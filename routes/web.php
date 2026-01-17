@@ -3,8 +3,11 @@
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RegionController;
+use App\Http\Controllers\TypeEventController;
 use App\Http\Middleware\IsAdminUser;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +36,26 @@ Route::name('admin.')->middleware([IsAdminUser::class])->prefix('admin')->group(
     Route::post('organizations', [OrganizationController::class, 'store'])->name('organization.store');
     Route::delete('organizations/{id}', [OrganizationController::class, 'destroy'])->name('organization.destroy');
 
+    Route::get('places', [PlaceController::class, 'index'])->name('places');
+    Route::get('places/create', [PlaceController::class, 'create'])->name('placeCreate');
+    Route::post('places', [PlaceController::class, 'store'])->name('place.store');
+    Route::delete('places/{id}', [PlaceController::class, 'destroy'])->name('place.destroy');
+    Route::get('places/{id}/edit', [PlaceController::class, 'edit'])->name('place.edit');
+    Route::patch('places/{id}', [PlaceController::class, 'update'])->name('place.update');
+
+    Route::get('regions', [RegionController::class, 'index'])->name('regions');
+    Route::get('regions/create', [RegionController::class, 'create'])->name('regionCreate');
+    Route::post('regions', [RegionController::class, 'store'])->name('region.store');
+    Route::delete('regions/{id}', [RegionController::class, 'destroy'])->name('region.destroy');
+    Route::get('regions/{id}/edit', [RegionController::class, 'edit'])->name('region.edit');
+    Route::patch('regions/{id}', [RegionController::class, 'update'])->name('region.update');
+
+    Route::get('typeEvents', [TypeEventController::class, 'index'])->name('typeEvents');
+    Route::get('typeEvents/create', [TypeEventController::class, 'create'])->name('typeEventCreate');
+    Route::post('typeEvents', [TypeEventController::class, 'store'])->name('typeEvent.store');
+    Route::delete('typeEvents/{id}', [TypeEventController::class, 'destroy'])->name('typeEvent.destroy');
+    Route::get('typeEvents/{id}/edit', [TypeEventController::class, 'edit'])->name('typeEvent.edit');
+    Route::patch('typeEvents/{id}', [TypeEventController::class, 'update'])->name('typeEvent.update');
 });
 
 Route::get('events/{id}', [EventController::class, 'show'])->name('event.show');

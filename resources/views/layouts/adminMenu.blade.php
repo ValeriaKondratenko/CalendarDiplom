@@ -34,11 +34,15 @@
                     </div>
                     <div class="containerPage">
                         <img class="imgBig" src="{{asset('storage/images/iconPlaces.png')}}" alt="iconPlaces">
-                        <a href="">Места проведения</a>
+                        <a href="{{route('admin.places')}}">Места проведения</a>
+                    </div>
+                    <div class="containerPage">
+                        <img  src="{{asset('storage/images/iconRegion.png')}}" alt="iconPlaces">
+                        <a href="{{route('admin.regions')}}">Регионы</a>
                     </div>
                     <div class="containerPage">
                         <img class="imgBig" src="{{asset('storage/images/iconCalendars.png')}}" alt="iconCalendars">
-                        <a href="">Типы мероприятий</a>
+                        <a href="{{route('admin.typeEvents')}}">Типы мероприятий</a>
                     </div>
                 </div>
 
