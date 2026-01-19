@@ -15,9 +15,20 @@
 
     <div class="containerEvents">
         <h1>Организации</h1>
-        <div class="containerSearchCreate">
-            <a href="{{route('admin.organizationCreate')}}" class="btnCreate">Создать</a>
-        </div>
+
+            <div class="containerSearchCreate">
+                <a href="{{route('admin.organizationCreate')}}" class="btnCreate">Создать</a>
+                <div class="container_filter_region_admin">
+                    <form action="">
+                        <select name="filterDateType" id="sortSelect">
+                            <option value="none" selected>Сортировка</option>
+                            <option value="title_asc">От А до Я</option>
+                            <option value="title_desc">От Я до А</option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+
 
 
         <div class="events_table">
@@ -33,7 +44,7 @@
 
             @foreach($organizations as $organization)
 
-            <div class="table_row">
+            <div class="table_row"  data-title="{{ strtolower($organization->name) }}">
                 <div>{{$organization->name}}</div>
                 <div class="description">{{$organization->description}}</div>
                 <div>{{$organization->contact}}</div>
@@ -44,14 +55,14 @@
                         {{ method_field('DELETE') }}
 
 {{--                        <div class="" >--}}
-                            <button type="submit">Удалить</button>
+                        <button class="btnTrash" type="submit">Удалить</button>
 {{--                        </div>--}}
                     </form>
 {{--                    <a href="" class="btnTrash">--}}
 {{--                    <img src="{{ asset('storage/images/iconTrash.png') }}" alt="iconTrash">--}}
 {{--                    </a>--}}
                     <a href="{{route('admin.organization.edit', $organization->id)}}" class="btnCorrect">
-                        <img src="{{asset('storage/images/iconCorrect.png')}}" alt="iconCorrect">
+                        <span>Изменить</span>
                     </a>
                 </div>
             </div>

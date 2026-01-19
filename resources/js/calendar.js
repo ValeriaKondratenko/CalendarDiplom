@@ -1,215 +1,210 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь','Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+
+    let activeType = 'all';
+    let activeSort = 'none';
 
 
-//здесь получаем год, месяц и день из полученной даты
-    let currentDate = new Date();
-    let currentYear = currentDate.getFullYear();
-    let currentMonth = currentDate.getMonth();
-    const currentDay = currentDate.getDay();
-
-//здесь устанавливаем год и месяц в хеддер календаря
-    let currentMonthHeader = document.getElementById('calendar_month');
-    let currentYearHeader = document.getElementById('calendar_year');
-    currentMonthHeader.innerText = months[currentMonth];
-    currentYearHeader.innerText = currentYear;
-
-//здесь две функции для предыдущих и следущих месяцев
-    document.querySelector('.btn_header_before').addEventListener('click', function () {
-        if(currentMonth > 0){
-            currentMonth--;
-        }
-        else{
-            currentMonth = 11;
-            currentYear--;
-        }
-
-        currentMonthHeader.innerText = months[currentMonth];
-        currentYearHeader.innerText = currentYear;
-    });
-
-    document.querySelector('.btn_header_after').addEventListener('click', function (){
-        if(currentMonth < 11){
-            currentMonth++;
-        }
-        else{
-            currentMonth = 0;
-            currentYear++;
-        }
-
-        currentMonthHeader.innerText = months[currentMonth];
-        currentYearHeader.innerText = currentYear;
-    });
-
-    function formatDate(date) {
-        const year = date.getFullYear();
-        const month =String( date.getMonth() + 1).padStart(2, '0');//padStart добавляет 0 в начале если строка короче двух символов
-        const day = String(date.getDate()).padStart(2, '0');
-
-        return `${year}-${month}-${day}`;
+    function normalizeDate(date) {
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate());
     }
 
-    const weekDays = ['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота','Воскресенье'];
+    const months = [
+        'Январь','Февраль','Март','Апрель',
+        'Май','Июнь','Июль','Август',
+        'Сентябрь','Октябрь','Ноябрь','Декабрь'
+    ];
 
-    //здесь получаем понедельник текущей недели
-    function getStartOfWeek(currentDate){
-        const day = currentDate.getDay() || 7;//получаем номер дня недели текущего дня
-        const monday = new Date(currentDate);//создаем новую дату, но пишем в скобках текущий день чтобы не перезаписать ориг дату
-        monday.setDate(currentDate.getDate() - day + 1);// currentDate.getDate() - вовращает число месяца, day - номер дня недели
-        return monday;
+    const monthEl = document.getElementById('calendar_month');
+    const yearEl  = document.getElementById('calendar_year');
+
+    const today = normalizeDate(new Date());
+    let activeMonth = today.getMonth();
+    let activeYear  = today.getFullYear();
+
+    function updateCalendarHeader(month, year) {
+        monthEl.textContent = months[month];
+        yearEl.textContent  = year;
     }
 
-    // здесь функция отрисовки недели
-    function renderWeek(currentDate){
-        const weekContainer = document.getElementById('calendar_days');
-        const weekTitle = document.getElementById('calendar_current_week');
+    const currentContainer = document.querySelector('.current_events .Cards');
+    const futureContainer  = document.querySelector('.now_events .Cards');
+    const pastContainer    = document.querySelector('.before_events .Cards');
 
-        weekContainer.innerHTML = ''; //очищаем перед заполнением
+    const currentEmpty = document.querySelector('.current_events .empty-message');
+    const futureEmpty  = document.querySelector('.now_events .empty-message');
+    const pastEmpty    = document.querySelector('.before_events .empty-message');
 
-        const startWeek = getStartOfWeek(currentDate);
-        const endWeek = new Date(startWeek);
-        endWeek.setDate(startWeek.getDate() + 6);// 6 потому что отсчет начинается с 0
+    const cards = document.querySelectorAll('#all-events .container_card');
 
+    function renderEvents(month, year) {
 
-        const startDay = String(startWeek.getDate()).padStart(2, '0');
-        const startMonth = String(startWeek.getMonth() + 1).padStart(2, '0');
+        currentContainer.innerHTML = '';
+        futureContainer.innerHTML  = '';
+        pastContainer.innerHTML    = '';
 
-        const endDay = String(endWeek.getDate()).padStart(2, '0');
-        const endMonth = String(endWeek.getMonth() + 1).padStart(2, '0');
+        let filteredCards = [];
 
-        weekTitle.innerHTML = `${startDay}.${startMonth} - ${endDay}.${endMonth}`;
+        cards.forEach(card => {
+            const eventDate = normalizeDate(new Date(card.dataset.date));
+            const cardMonth = Number(card.dataset.month);
+            const cardYear  = Number(card.dataset.year);
+            const cardType  = card.dataset.type;
 
-        // const eventsContainer = document.getElementById('events_container');
-        // eventsContainer.innerHTML = '';
+            if (cardMonth !== month || cardYear !== year) return;
+            if (activeType !== 'all' && cardType !== activeType) return;
 
-        for (let i = 0; i < 7; i++){
-            const day = new Date(startWeek);
-            // почему вообще тут прибавляем - для сдвига даты(например 12 понедельник - 12 + 0 = 12 , ну и так далее)
-            day.setDate(startWeek.getDate() + i);//почему нельзя просто присвоить i - потому что нужна дата, а i - число
+            filteredCards.push({
+                card,
+                eventDate,
+                title: card.querySelector('h3').textContent.trim()
+            });
+        });
 
-            const line = document.createElement('div');
-            line.classList.add('line_gray');
+        //сама сортировка
+        if (activeSort === 'title_asc') {
+            filteredCards.sort((a, b) =>
+                a.title.localeCompare(b.title, 'ru')
+            );
+        }
 
-            const eventsContainer = document.createElement('div');
-            eventsContainer.classList.add('events_container');
+        if (activeSort === 'title_desc') {
+            filteredCards.sort((a, b) =>
+                b.title.localeCompare(a.title, 'ru')
+            );
+        }
 
-            const dayDiv = document.createElement('div');
-            dayDiv.className = 'calendar_day';
-
-
-
-            if (day.getMonth() !== currentMonth) {
-                dayDiv.classList.add('other_month');
+        // Вставка в контейнеры
+        filteredCards.forEach(item => {
+            if (item.eventDate.getTime() === today.getTime()) {
+                currentContainer.appendChild(item.card);
             }
-
-            // dayDiv.innerHTML = `
-            //                     <div>${day.getDate()}</div>
-            //                     <div>${weekDays[i]}</div>`;
-
-            const dateDiv = document.createElement('div');
-            dateDiv.classList.add('calendar_date');
-            dateDiv.textContent = day.getDate();
-
-            const weekDayDiv = document.createElement('div');
-            weekDayDiv.classList.add('calendar_weekday');
-            weekDayDiv.textContent = weekDays[i];
-
-            const eventDiv = document.createElement('div');
-            eventDiv.classList.add('calendar_day_event');
-
-            const today = new Date();
-            if (
-                day.getDate() === today.getDate() &&
-                day.getMonth() === today.getMonth() &&
-                day.getFullYear() === today.getFullYear()
-            ) {
-                dayDiv.classList.add('today');
+            else if (item.eventDate > today) {
+                futureContainer.appendChild(item.card);
             }
+            else {
+                pastContainer.appendChild(item.card);
+            }
+        });
 
-            dayDiv.appendChild(dateDiv);
-            dayDiv.appendChild(weekDayDiv);
-
-            const dayStr = formatDate(day);
-            const dayEvents = events.filter(e => e.dateEvent === dayStr);
-
-            // card.innerHTML = `
-            //     <a href="/events/${e.id}">${e.title}</a>
-            //     <div>${e.date}</div>
-            // `;
-
-            dayEvents.forEach(e=> {
-
-                const card = document.createElement('div');
-                card.classList.add('event_card');
-
-                const titleDiv = document.createElement('div');
-                titleDiv.classList.add('event_title');
-                titleDiv.textContent = e.title;
-
-                const timeDiv = document.createElement('div');
-                timeDiv.classList.add('event_time');
-                timeDiv.textContent = e.timeEvent.slice(0, 5); // 14:30
-
-                const dateDiv = document.createElement('div');
-                dateDiv.classList.add('event_date');
-                dateDiv.textContent = e.dateEvent;
-
-                const link = document.createElement('a');
-                link.classList.add('btn_event_card');
-                link.textContent = 'Подробнее';
-                link.href = `/events/${e.id}`;
+        checkEmpty(currentContainer, currentEmpty);
+        checkEmpty(futureContainer, futureEmpty);
+        checkEmpty(pastContainer, pastEmpty);
+    }
 
 
-                card.appendChild(titleDiv);
-                card.appendChild(dateDiv);
-                card.appendChild(timeDiv);
-                card.appendChild(link);
+    updateCalendarHeader(activeMonth, activeYear);
+    renderEvents(activeMonth, activeYear);
 
+    const sortSelect = document.getElementById('sortSelect');
 
-                eventDiv.appendChild(card);
-                // eventsContainer.appendChild(card);
+    sortSelect.addEventListener('change', () => {
+        activeSort = sortSelect.value;
+        renderEvents(activeMonth, activeYear);
+    });
+
+    const typeFilter = document.getElementById('typeFilter');
+
+    typeFilter.addEventListener('change', () => {
+        activeType = typeFilter.value;
+        renderEvents(activeMonth, activeYear);
+    });
+
+    document.getElementById('prevMonth').addEventListener('click', () => {
+        activeMonth--;
+        if (activeMonth < 0) {
+            activeMonth = 11;
+            activeYear--;
+        }
+        updateCalendarHeader(activeMonth, activeYear);
+        renderEvents(activeMonth, activeYear);
+    });
+
+    document.getElementById('nextMonth').addEventListener('click', () => {
+        activeMonth++;
+        if (activeMonth > 11) {
+            activeMonth = 0;
+            activeYear++;
+        }
+        updateCalendarHeader(activeMonth, activeYear);
+        renderEvents(activeMonth, activeYear);
+    });
+
+    //код для поиска
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+
+    searchInput.addEventListener('input', () => {
+        const query = searchInput.value.trim().toLowerCase();
+
+        searchResults.innerHTML = '';
+        searchResults.hidden = true;
+
+        if (query.length === 0) {
+            renderEvents(activeMonth, activeYear);
+            return;
+        }
+
+        let matches = [];
+
+        cards.forEach(card => {
+            const title = card.querySelector('h3').textContent.toLowerCase();
+
+            if (title.includes(query)) {
+                const link = card.querySelector('.btnMoreDetailed').href;
+
+                matches.push({
+                    title,
+                    link
+                });
+            }
+        });
+
+        if (matches.length === 0) {
+            searchResults.hidden = false;
+            searchResults.innerHTML = `
+            <div class="container_message_search">
+                Ничего не найдено
+            </div>
+        `;
+            return;
+        }
+
+        searchResults.hidden = false;
+
+        matches.forEach(item => {
+            const result = document.createElement('div');
+            result.className = 'search-item';
+            result.textContent = item.title;
+
+            result.addEventListener('click', () => {
+                window.location.href = item.link;
             });
 
-            eventsContainer.appendChild(dayDiv);
-            eventsContainer.appendChild(eventDiv);
+            searchResults.appendChild(result);
+        });
 
-            weekContainer.appendChild(line);
-            weekContainer.appendChild(eventsContainer);
-        }
+        // очистка календаря для поиска
+        currentContainer.innerHTML = '';
+        futureContainer.innerHTML = '';
+        pastContainer.innerHTML = '';
+    });
 
+
+    const message = document.getElementById('flash-message');
+
+    if (message) {
+        setTimeout(() => {
+            message.classList.add('hide');
+
+            // полностью убрать из DOM
+            setTimeout(() => {
+                message.remove();
+            }, 500);
+        }, 3000);
     }
 
-    //кнопки переключения недели
-    document.querySelector('.btn_week_before').addEventListener('click', function (){
-       const prevWeek = new Date(currentDate);
-       prevWeek.setDate(currentDate.getDate() - 7);
-
-       if(prevWeek.getMonth() === currentMonth) {
-           currentDate = prevWeek;
-           renderWeek(currentDate);
-       }
-    });
-
-    document.querySelector('.btn_week_after').addEventListener('click', function (){
-       const nextWeek = new Date(currentDate);
-       nextWeek.setDate(currentDate.getDate() + 7);
-
-       if(nextWeek.getMonth() === currentMonth){
-           currentDate = nextWeek;
-           renderWeek(currentDate);
-       }
-    });
-
-    //Запуск функции, которая отвечает за текущую неделю
-    renderWeek(currentDate);
-
-
-
-// //здесь вычисляем сколько дней в месяце
-//     let daysInMonth = new Date(currentYear, currentMonth+1, 0).getDate(); // 0 - это последний день предыдущего месяца, берем спец. текущей месяц и прибавляем 1 чтобы перейти на след. и потом уже getDate возвращает номер последнего дня
-//
-//
-//     let week = document.createElement('div');
 });
 
-
+function checkEmpty(container, message) {
+    message.hidden = container.children.length !== 0;
+}

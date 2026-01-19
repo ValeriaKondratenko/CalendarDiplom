@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model implements Authenticatable
 {
+    public function favoriteEvents()
+    {
+        return $this->belongsToMany(Event::class, 'favorites')
+            ->withTimestamps();
+    }
+
     protected $fillable = ['name','email', 'password', 'role'];
 
     public function getAuthIdentifierName()

@@ -15,9 +15,20 @@
 
     <div class="containerEvents">
         <h1>Регионы</h1>
-        <div class="containerSearchCreate">
-            <a href="{{route('admin.regionCreate')}}" class="btnCreate">Создать</a>
-        </div>
+            <div class="containerSearchCreate">
+                <a href="{{route('admin.regionCreate')}}" class="btnCreate">Создать</a>
+                <div class="container_filter_region_admin">
+                    <form action="">
+                        <select name="filterDateType" id="sortSelect">
+                            <option value="none" selected>Сортировка</option>
+                            <option value="title_asc">От А до Я</option>
+                            <option value="title_desc">От Я до А</option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+
+
 
 
         <div class="events_table">
@@ -30,7 +41,7 @@
 
             @foreach($regions as $region)
 
-                <div class="table_row">
+                <div class="table_row" data-title="{{ strtolower($region->name) }}">
                     <div>{{$region->name}}</div>
                     <div class="actions">
                         <form class="formDelBtn" method="POST" action="{{ route('admin.region.destroy', $region->id) }}">
@@ -38,14 +49,14 @@
                             {{ method_field('DELETE') }}
 
                             {{--                        <div class="" >--}}
-                            <button type="submit">Удалить</button>
+                            <button class="btnTrash" type="submit">Удалить</button>
                             {{--                        </div>--}}
                         </form>
                         {{--                    <a href="" class="btnTrash">--}}
                         {{--                    <img src="{{ asset('storage/images/iconTrash.png') }}" alt="iconTrash">--}}
                         {{--                    </a>--}}
                         <a href="{{route('admin.region.edit', $region->id)}}" class="btnCorrect">
-                            <img src="{{asset('storage/images/iconCorrect.png')}}" alt="iconCorrect">
+                            <span>Изменить</span>
                         </a>
                     </div>
                 </div>

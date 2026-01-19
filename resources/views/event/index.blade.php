@@ -14,12 +14,25 @@
 
 @include('layouts.headerCalendar')
 
+@if (session('error'))
+    <div class="alert alert-error" id="flash-message">
+        {{ session('error') }}
+    </div>
+@endif
+
+@if (session('success'))
+    <div class="alert alert-success" id="flash-message">
+        {{ session('success') }}
+    </div>
+@endif
+
+
 <div class="calendar">
     <div class="calendar_header">
-        <button class="btn_header_before" > < </button>
+        <button class="btn_header_before" id="prevMonth" > &lt; </button>
         <div class="calendar_month" id="calendar_month"></div>
         <div class="calendar_year" id="calendar_year"></div>
-        <button class="btn_header_after"> > </button>
+        <button class="btn_header_after" id="nextMonth"> &gt; </button>
     </div>
 
     <div class="container_filters">
@@ -29,30 +42,34 @@
 
         <div class="container_filter_type">
             <form action="">
-                <select name="filter" id="">
-                    <option value="" disabled selected hidden>Фильтры</option>
-                    <option value="">Конкурс</option>
-                    <option value="">Выставка</option>
+                <select name="filter" id="typeFilter">
+                    <option value="all" selected>Все типы</option>
+
+                    @foreach($types as $type)
+                        <option value="{{ $type->id }}">
+                            {{ $type->name }}
+                        </option>
+                    @endforeach
                 </select>
             </form>
         </div>
 
         <div class="container_filter_region">
             <form action="">
-                <select name="filterDateType" id="">
-                    <option value="" disabled selected hidden>Выбрать</option>
-                    <option value="">По дате</option>
-                    <option value="">По типу</option>
+                <select name="filterDateType" id="sortSelect">
+                    <option value="none" selected>Сортировка</option>
+                    <option value="title_asc">От А до Я</option>
+                    <option value="title_desc">От Я до А</option>
                 </select>
             </form>
         </div>
 
         <div class="container_form_search">
-            <form action="" class="">
-                <input placeholder="Поиск" >
-            </form>
+                <input id="searchInput"  placeholder="Поиск" >
+            <div id="searchResults" class="search-results" hidden></div>
         </div>
     </div>
+
 
     @include('layouts.cards')
 

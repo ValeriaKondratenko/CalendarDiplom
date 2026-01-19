@@ -1,6 +1,6 @@
 <header class="calendar_header_content">
 
-    <span>Календарь ABW.by</span>
+    <a href="{{route('event.index')}}">Календарь ABW.by</a>
 
     <div class="container_login_like">
         <div class="login_register">
@@ -28,7 +28,8 @@
         </div>
 
         <div class="container_like">
-            <img src="{{asset('storage/images/iconHeart.png')}}" alt="Icon 1">
+            <a href="{{route('likes')}}"><img src="{{asset('storage/images/iconHeart.png')}}" alt="Icon 1"></a>
+
         </div>
 
     </div>

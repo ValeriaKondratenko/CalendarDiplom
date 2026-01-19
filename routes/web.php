@@ -24,6 +24,7 @@ Route::name('admin.')->middleware([IsAdminUser::class])->prefix('admin')->group(
     Route::delete('events/{id}', [EventController::class, 'destroy'])->name ('event.destroy');
 //POST-запрос
     Route::post('events', [EventController::class, 'store'])->name('event.store');
+    Route::get('/events/archive', [EventController::class, 'archivePage'])->name('events.archive');
 
     Route::get('users', [LoginController::class, 'users'])->name('users');
     Route::get('users/create', [LoginController::class, 'create'])->name('userCreate');
@@ -66,9 +67,9 @@ Route::get('events', [EventController::class, 'index'])->name('event.index');
 
 Route::get('about', [PageController::class, 'about'])->name('about');
 
-Route::prefix('events')->group(function () {
-    Route::get('/', [EventController::class, 'index'])->name('index');
-})->name('event');
+//Route::prefix('events')->group(function () {
+//    Route::get('/', [EventController::class, 'index'])->name('index');
+//})->name('event');
 
 
 
@@ -81,6 +82,13 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::post('/favorites/{id}', [EventController::class, 'addToFavorite'])
+        ->name('favorites.add');
+    Route::delete('/favorites/{id}', [EventController::class, 'removeFromFavorite'])
+        ->name('favorites.remove');
+
+    Route::get('/likes', [EventController::class, 'likesPage'])->name('likes');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

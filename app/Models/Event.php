@@ -17,16 +17,22 @@ class  Event extends Model implements HasMedia
 
     protected $fillable = ['title', 'status', 'description', 'dateEvent', 'timeEvent', 'endEvent', 'price', 'participation', 'program', 'other_info', 'id_organisation', 'id_event_type', 'id_place'];
 
+    public function favoritedBy()
+    {
+        return $this->belongsToMany(User::class, 'favorites')
+            ->withTimestamps();
+    }
+
     public function organization(){
-        return $this->belongsTo(Organization::class);
+        return $this->belongsTo(Organization::class, 'id_organisation');
     }
 
     public function typeEvent(){
-        return $this->belongsTo(TypeEvent::class);
+        return $this->belongsTo(TypeEvent::class, 'id_event_type');
     }
 
     public function place(){
-        return $this->belongsTo(Place::class);
+        return $this->belongsTo(Place::class, 'id_place');
     }
 
     public function getCover()

@@ -15,8 +15,18 @@
 
     <div class="containerEvents">
         <h1>Типы мероприятий</h1>
+
         <div class="containerSearchCreate">
             <a href="{{route('admin.typeEventCreate')}}" class="btnCreate">Создать</a>
+            <div class="container_filter_region_admin">
+                <form action="">
+                    <select name="filterDateType" id="sortSelect">
+                        <option value="none" selected>Сортировка</option>
+                        <option value="title_asc">От А до Я</option>
+                        <option value="title_desc">От Я до А</option>
+                    </select>
+                </form>
+            </div>
         </div>
 
 
@@ -30,7 +40,7 @@
 
             @foreach($typeEvents as $typeEvent)
 
-                <div class="table_row">
+                <div class="table_row" data-title="{{ strtolower($typeEvent->name) }}">>
                     <div>{{$typeEvent->name}}</div>
                     <div class="actions">
                         <form class="formDelBtn" method="POST" action="{{ route('admin.typeEvent.destroy', $typeEvent->id) }}">
@@ -38,14 +48,14 @@
                             {{ method_field('DELETE') }}
 
                             {{--                        <div class="" >--}}
-                            <button type="submit">Удалить</button>
+                            <button class="btnTrash" type="submit">Удалить</button>
                             {{--                        </div>--}}
                         </form>
                         {{--                    <a href="" class="btnTrash">--}}
                         {{--                    <img src="{{ asset('storage/images/iconTrash.png') }}" alt="iconTrash">--}}
                         {{--                    </a>--}}
                         <a href="{{route('admin.typeEvent.edit', $typeEvent->id)}}" class="btnCorrect">
-                            <img src="{{asset('storage/images/iconCorrect.png')}}" alt="iconCorrect">
+                            <span>Изменить</span>
                         </a>
                     </div>
                 </div>

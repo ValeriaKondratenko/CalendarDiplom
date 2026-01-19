@@ -17,6 +17,13 @@
         <h1>Пользователи</h1>
         <div class="containerSearchCreate">
             <a href="{{route('admin.userCreate')}}" class="btnCreate">Создать</a>
+            <div class="container_filter_region_admin">
+                <select id="sortSelect">
+                    <option value="none" selected>Сортировка</option>
+                    <option value="title_asc">От А до Я</option>
+                    <option value="title_desc">От Я до А</option>
+                </select>
+            </div>
         </div>
 
 
@@ -32,7 +39,7 @@
 
                 @foreach($users as $user)
 
-                    <div class="table_row">
+                    <div class="table_row" data-title="{{ strtolower($user->name) }}">
                         <div>{{$user->name}}</div>
                         <div>{{$user->email}}</div>
                         <div>{{$user->role}}</div>

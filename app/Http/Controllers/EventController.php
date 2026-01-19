@@ -15,21 +15,70 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::get();
+//        $events = Event::get();
+        $events = Event::with('media')->get();
+        $types = TypeEvent::all();
 
-        return view('event.index', compact('events'));
+        return view('event.index', compact('events', 'types'));
     }
+
+    public function likesPage(){
+        $events = auth()->user()->favoriteEvents;
+
+        return view('event.likesPage', compact('events'));
+    }
+
+    public function addToFavorite($id)
+    {
+        $event = Event::findOrFail($id);
+
+        // если мероприятие уже прошло
+        if ($event->dateEvent->isPast()) {
+            return back()->with('error', 'Нельзя добавить прошедшее мероприятие в избранное');
+        }
+
+        auth()->user()
+            ->favoriteEvents()
+            ->syncWithoutDetaching([$id]);//строчка говорит о том что добавь в избранное мероприятие но не удаляй другие
+
+        return back()->with('success', 'Мероприятие добавлено в избранное');
+    }
+
+    public function removeFromFavorite($id)
+    {
+        auth()->user()
+            ->favoriteEvents()
+            ->detach($id);
+
+        return back();
+    }
+
 
     public function adminPage(){
         $events = Event::get();
+        $types = TypeEvent::all();
 
-        return view('event.adminPage', compact('events'));
+        return view('event.adminPage', compact('events', 'types'));
     }
 
     public function eventsPage(){
-        $events = Event::get();
+        $events = Event::whereDate('dateEvent', '>=', date('Y-m-d'))
+            ->orderBy('dateEvent')
+            ->get();
+        $types = TypeEvent::all();
 
-        return view('event.eventsPage', compact('events'));
+        return view('event.eventsPage', compact('events', 'types'));
+    }
+
+    public function archivePage()
+    {
+        $events = Event::whereDate('dateEvent', '<', date('Y-m-d'))
+            ->orderByDesc('dateEvent')
+            ->get();
+
+        $types = TypeEvent::all();
+
+        return view('event.archivePage', compact('events', 'types'));
     }
 
     /**
@@ -132,7 +181,10 @@ class EventController extends Controller
      */
     public function show($id)//в примере параметр такой, поэтому тоже написала
     {
-        $event = Event::findOrFail($id);
+        $event = Event::with(['media', 'organization', 'place'])->findOrFail($id);
+//        $organization = Organization::all();
+//        $typeEvent = TypeEvent::all();
+//        $place = Place::all();
         return view('event.show', compact('event'));
     }
 

@@ -32,8 +32,9 @@ body {
     padding: 10px;
 }
 
-.calendar_header_content span {
+.calendar_header_content a {
     font-size: 18px;
+    text-decoration: none;
 }
 
 .login_register {
@@ -81,18 +82,24 @@ body {
 
 }
 
+.container_like a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .container_like img{
     width: 50%;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
- form {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-     margin: 0;
-}
+/* form {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*     margin: 0;*/
+/*}*/
 
 .btn_logout {
     background-color: #FF4D00;
@@ -128,7 +135,8 @@ body {
 }
 
 
-.calendar {
+.calendar,
+.containerLikesEvents {
     padding: 20px;
     margin-top: 100px;
 }
@@ -184,6 +192,36 @@ body {
     gap: 10px;
 }
 
+/*для поиска*/
+.container_form_search {
+    position: relative;
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 5px;
+    z-index: 10;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.search-item {
+    padding: 10px 14px;
+    cursor: pointer;
+}
+
+.search-item:hover {
+    background: #f3f3f3;
+}
+
+
 .container_filter_type select,
 .container_filter_region select{
     width: 150px;
@@ -205,13 +243,15 @@ body {
 }
 
 .containerNowEvents span,
-.containerBeforeEvents{
+.containerBeforeEvents span,
+.containerCurrentEvents span{
     font-size: 25px;
 }
 
 /*стили для карточки товара*/
 .containerNowEvents,
-.containerBeforeEvents {
+.containerBeforeEvents,
+.containerCurrentEvents {
     display: flex;
     flex-direction: column;
     gap: 70px;
@@ -219,11 +259,55 @@ body {
     margin-bottom: 150px;
 }
 
-.Cards {
+.container_message {
+    width: 600px;
+    height: 50px;
     display: flex;
-    gap: 40px;
     align-items: center;
-    justify-content: center;
+    padding: 30px;
+    background-color: #FBD1BF;
+    border: 2px solid #FF4D00;
+    border-radius: 10px;
+    color: #5D2800;
+}
+
+.container_message_search {
+    width: 600px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 30px;
+    background-color: #FFFFFF;
+    border: 2px solid #F3F3F3;
+    border-radius: 10px;
+
+}
+
+.empty-message {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.Cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 40px;
+    /*align-items: center;*/
+    /*justify-content: center;*/
+}
+
+@media (max-width: 1200px) {
+    .Cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .Cards {
+        grid-template-columns: 1fr;
+    }
 }
 
 .container_card {
@@ -237,37 +321,48 @@ body {
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-.container_ImageCard img{
-
+.container_ImageCard{
     width: 100%;
-    object-fit: contain;
-    border: none;
+    height: 210px;
+    overflow: hidden;
     border-radius: 10px 10px 0 0;
+}
+
+.container_ImageCard img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 .btnHeart {
     background-color: #F3F3F3;
     border: none;
     border-radius: 50%;
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 10px;
+    right: 10px;
 
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.heartBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .ImgIconHeart{
-    width: 50%;
+    width: 60%;
 }
 .container_CardInfo{
     padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 7px;
 
 }
 
@@ -299,6 +394,8 @@ body {
     background-color: #FF4D00;
     color: #FFFFFF;
     font-size: 18px;
+    text-decoration: none;
+    text-align: center;
 }
 
 .btnWebSait{
@@ -472,3 +569,6 @@ body {
     justify-content: center;
     gap: 15px;
 }
+
+
+

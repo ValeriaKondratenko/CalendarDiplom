@@ -10,11 +10,18 @@
     gap: 25px;
 }
 
-.imageEvent{
-    width: 1300px;
-    height: 300px;
+.container_image {
+    width: 600px;
+    height: 350px;
+    overflow: hidden;
     border: none;
     border-radius: 20px
+}
+
+.imageEvent{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .btnWebSaitEvent {
@@ -103,21 +110,37 @@
 
 .container_term,
 .container_people,
-.container_organisation{
+.container_organisation,
+.container_place_info,
+.container_organisation_info{
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
+.place_info {
+    display: flex;
+    gap: 20px;
+}
+
+.container_organisation_info h2{
+    font-size: 20px;
+    font-weight: 600;
+}
+
 .container_term h1,
 .container_people h1,
-.container_organisation h1{
+.container_organisation h1 ,
+.container_place_info h1,
+.container_organisation_info h1{
     font-size: 25px;
     font-weight: 600;
 }
 
 .container_term span,
 .container_people span,
-.container_organisation span{
+.container_organisation span,
+.container_place_info span,
+.container_organisation_info span{
     font-size: 18px;
 }

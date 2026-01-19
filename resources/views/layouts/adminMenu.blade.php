@@ -44,6 +44,10 @@
                         <img class="imgBig" src="{{asset('storage/images/iconCalendars.png')}}" alt="iconCalendars">
                         <a href="{{route('admin.typeEvents')}}">Типы мероприятий</a>
                     </div>
+                    <div class="containerPage">
+                        <img  src="{{asset('storage/images/archiveImage.png')}}" alt="iconCalendars">
+                        <a href="{{route('admin.events.archive')}}">Архив мероприятий</a>
+                    </div>
                 </div>
 
 
@@ -53,11 +57,11 @@
         <div class="containerTwo">
             <div class="line"></div>
             <div class="btn_logoutadmin">
-                <form method="POST" action="{{route('logout')}}">
-                    @csrf
-                    <span>Выход</span>
+{{--                <form method="POST" action="{{route('event.index')}}">--}}
+{{--                    @csrf--}}
+                    <a href="{{route('event.index')}}">Выход</a>
                     <img class="imgBig2" src="{{asset('storage/images/iconLogout.png')}}" alt="iconLogout.png">
-                </form>
+{{--                </form>--}}
 
             </div>
         </div>
