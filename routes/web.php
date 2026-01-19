@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\StatisticsController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrganizationController;
@@ -58,6 +59,9 @@ Route::name('admin.')->middleware([IsAdminUser::class])->prefix('admin')->group(
     Route::delete('typeEvents/{id}', [TypeEventController::class, 'destroy'])->name('typeEvent.destroy');
     Route::get('typeEvents/{id}/edit', [TypeEventController::class, 'edit'])->name('typeEvent.edit');
     Route::patch('typeEvents/{id}', [TypeEventController::class, 'update'])->name('typeEvent.update');
+
+    //Statics
+    Route::get('graphics/{year}', StatisticsController::class)->name('statistics.show');
 });
 
 Route::get('events/{id}', [EventController::class, 'show'])->name('event.show');

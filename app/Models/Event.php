@@ -12,7 +12,7 @@ class  Event extends Model implements HasMedia
     use InteractsWithMedia;
 
     protected $casts = [
-        'dateEvent' => 'date',
+        'date_event' => 'date',
     ];
 
     protected $fillable = ['title', 'status', 'description', 'dateEvent', 'timeEvent', 'endEvent', 'price', 'participation', 'program', 'other_info', 'id_organisation', 'id_event_type', 'id_place'];
